@@ -1,0 +1,15 @@
+.idea/
+.vscode/
+test/
+badger-disk/
+logs/*
+.build/
+chunker_exe
+nameserver_exe
+nameserver_exec
+controller_exec
+controller_exec*
+*.log
+conf/
+multiParts
+multipart

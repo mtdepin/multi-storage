@@ -1,0 +1,53 @@
+stages:
+  - deploy
+
+
+
+deploy dev:
+  stage: deploy
+  retry: 1 # 重试一次
+  tags:
+    - runner193
+  only:
+    - develop  # 只对dev分支起作用
+  script:
+    - go mod tidy
+    - make  docker
+    - docker-compose down && docker-compose up -d
+
+
+deploy testing:
+  stage: deploy
+  retry: 1 # 重试一次
+  when: manual
+  tags:
+    - runner194
+  only:
+    - release  # 只对dev分支起作用
+  script:
+    - go mod tidy
+    - make  docker
+    - docker-compose down && docker-compose up -d
+
+deploy poc:
+  stage: deploy
+  retry: 1 # 重试一次
+  when: manual
+  tags:
+    - runner193
+  only:
+    - feature/yzq  # 只对dev分支起作用
+  script:
+    - go mod tidy
+    - make  docker
+    - docker-compose down && docker-compose up -d
+# deploy release:
+#   stage: deploy
+#   retry: 1 # 重试一次
+#   when: manual
+#   tags:
+#     - runner194
+#   only:
+#     - release  # 只对dev分支起作用
+#   script:
+#     - docker-compose down && docker-compose up -d

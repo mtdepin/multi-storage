@@ -1,0 +1,35 @@
+# yaml 配置
+version: '3'
+services:
+  chunker:
+    image: "harbor.mty.wang/mtoss/chunker"
+    container_name: "chunker"
+    ports:
+      - "8521:8521"
+      - "10000:10000"
+    volumes:
+      - "/data/chunker/conf:/opt/mtoss/chunker/conf"
+      - "/data/chunker/logs:/opt/mtoss/chunker/logs"
+      - "/data/chunker/multipart:/opt/mtoss/chunker/multipart"
+      - "/data/chunker/tmp:/tmp"
+    restart: always
+  nameserver:
+    image: "harbor.mty.wang/mtoss/nameserver"
+    container_name: "nameserver"
+    ports:
+      - "8522:8522"
+    volumes:
+      - "/data/nameserver/conf:/opt/mtoss/nameserver/conf"
+      - "/data/nameserver/logs:/opt/mtoss/nameserver/logs"
+    restart: always
+  controller:
+    image: "harbor.mty.wang/mtoss/controller"
+    container_name: "controller"
+    volumes:
+          - "/data/controller/conf:/opt/mtoss/controller/conf"
+          - "/data/controller/logs:/opt/mtoss/controller/logs"
+    restart: always
+networks:
+  default:
+    external:
+      name: mtoss
