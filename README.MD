@@ -1,8 +1,9 @@
 
+core engine of multi-storage
 
 ## build
     make clean
     make
 
-## build docker images and push to harbor
+## build docker
     make docker
